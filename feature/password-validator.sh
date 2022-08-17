@@ -1,8 +1,11 @@
 #!/bin/bash
 
-# Author - shubhamdeshpande1107@gmail.com
-#
-# Script to validate the password: 
+
+#Author : shubhamdeshpande1107@gmail.com
+# Password-validator script feature:  when -f is added the password should be retrieved from a file
+
+
+
 
 # Setting the color variables
 
@@ -10,7 +13,6 @@ green='\033[0;32m'
 red='\033[0;31m'
 
 # Setting password lengh and input variables
-
 # $1 is used to take input with the bash script
 
 password_length=10
@@ -41,9 +43,22 @@ fi
 }
 
 
+while getopts ":f:" OPTION; do
+	case $OPTION in
+		f)
+		    FILE_PATH=$OPTARG
+			;;
+	esac
+done
+
+
+if [ ! -z "$FILE_PATH" ]
+then
+		password=$(<$FILE_PATH)
+fi
+
 validate $password
 
 printf "${green}Your password is validated"
 
 exit 0
- 
